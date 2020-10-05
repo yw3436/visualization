@@ -218,4 +218,7 @@ weather_df %>%
 #generate a data that contains tomorrow's temperature
 ```
 
+## Quick note
+
+summarize only gets you so far
 
