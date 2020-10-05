@@ -194,12 +194,71 @@ ggplot(data = waikiki, aes(x = date, y = tmax, color = name)) +
 # if don't specify the dataset, the default dataset will be waikiki, so we can specify the data in the geom() statement for the specific geom
 ```
 
+## `patchwork`
+
+remember faceting?
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, fill = name)) +
+  geom_density(alpha = .5) + 
+  facet_grid(. ~ name)
+```
+
+What happens when you want multipanel plots but can't facet?
+
+```{r}
+## patchwork is used to put multiple plots into one panel
+tmax_tmin_p = weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  theme(legend.position = "none")
+
+prcp_dens_p = 
+  weather_df %>% 
+  filter(prcp > 0) %>% 
+  ggplot(aes(x = prcp, fill = name)) + 
+  geom_density(alpha = .5) + 
+  theme(legend.position = "none")
+
+tmax_date_p = 
+  weather_df %>% 
+  ggplot(aes(x = date, y = tmax, color = name)) + 
+  geom_point(alpha = .5) +
+  geom_smooth(se = FALSE) + 
+  theme(legend.position = "bottom")
+
+(tmax_tmin_p + prcp_dens_p) / tmax_date_p
+# Go to the patchwork webpage to see more info
+```
+
+## Data manipulation
+
+Control your factors
+
+```{r}
+weather_df %>%
+  mutate(name = forcats::fct_relevel(name, c("Waikiki_HA", "CentralPark_NY", "Waterhole_WA"))) %>% 
+  ggplot(aes(x = name, y = tmax)) + 
+  geom_violin(aes(fill = name), color = "blue", alpha = .5) + 
+  theme(legend.position = "bottom")
+```
 
 
+What if I wanted densities for tmin and tmax simultaneously?
 
-
-
-
+```{r}
+weather_df %>% 
+  pivot_longer(
+    tmax:tmin,
+    names_to = "observation",
+    values_to = "temperatures"
+  ) %>% 
+  ggplot(aes(x = temperatures, fill = observation)) +
+  geom_density(alpha = .5) +
+  facet_grid(. ~ name)
+# this is a data manupulation issue rather than a ggplot issue
+```
 
 
 
