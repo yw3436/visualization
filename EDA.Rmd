@@ -150,15 +150,72 @@ weather_df %>%
   geom_point() +
   geom_line() +
   theme(legend.position = "bottom")
-
-weather_df %>%
-  group_by(name, month) %>%
-  summarize(mean_tmax = mean(tmax)) %>%
-  ggplot(aes(x = month, y = mean_tmax, color = name)) + 
-    geom_point() + geom_line() + 
-    theme(legend.position = "bottom")
 ```
 
 Suppose you want to summarize many columns in the same way.
+
+```{r}
+weather_df %>% 
+  group_by(name, month) %>% 
+  summarize(across(prcp:tmin, mean))
+```
+
+reminder: sometimes your results are easier to read in another format.
+
+```{r}
+weather_df %>% 
+  group_by(name, month) %>% 
+  summarize(mean_tmax = mean(tmax)) %>% 
+  pivot_wider(
+    names_from = name,
+    values_from = mean_tmax
+  ) %>% 
+  knitr::kable(digits = 3)
+```
+
+## `group_by` and `mutate`
+
+```{r}
+weather_df %>% 
+  group_by(name) %>% 
+  mutate(
+    mean_tmax = mean(tmax, na.rm = TRUE),
+    centered_tmax = tmax - mean_tmax
+  ) %>% 
+  ggplot(aes(x = date, y = centered_tmax, color = name)) +
+  geom_point()
+# when do mutate, we will define a new variable according to each group first
+```
+
+what about window functions?
+
+```{r}
+weather_df %>% 
+  group_by(name, month) %>% 
+  mutate(temp_rank = min_rank(tmax)) %>% 
+  filter(temp_rank == 1)
+# min_rank ranks from the lowest to the highest
+```
+
+```{r}
+weather_df %>% 
+  group_by(name, month) %>% 
+  mutate(temp_rank = min_rank(desc(tmax)))
+# in this way, we rank from the highest to the lowest
+```
+
+
+lag
+
+```{r}
+weather_df %>% 
+  group_by(name) %>% 
+  mutate(temp_change = tmax - lag(tmax,5)) %>% 
+  summarize(
+    temp_change_max = max(temp_change, na.rm = TRUE),
+    temp_change_sd = sd(temp_change, na.rm = TRUE)
+  )
+#generate a data that contains tomorrow's temperature
+```
 
 
