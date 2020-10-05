@@ -415,5 +415,42 @@ weather_df %>%
 
 ``` r
 # more easier to see when we have many categories
-# need to load ggridges package to run geom_ridges
+# need to load ggridgespackage to run geom_ridges
 ```
+
+## save and embed
+
+Save a scatterplot
+
+``` r
+weather_plot = 
+  ggplot(weather_df, aes(x = tmin, y = tmax)) + 
+  geom_point(aes(color = name), alpha = .5) 
+
+ggsave("weather_plot.pdf", weather_plot, width = 8, height = 5)
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+``` r
+# always put the plot in a object first
+# can also give a relative path to save the plot
+```
+
+Embeding
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](data_import_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+``` r
+weather_plot
+```
+
+    ## Warning: Removed 15 rows containing missing values (geom_point).
+
+![](data_import_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
