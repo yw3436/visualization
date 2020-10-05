@@ -94,7 +94,7 @@ ggplot(weather_df, aes(x = tmin, y = tmax)) +
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 new approach, same plot.
 
@@ -107,7 +107,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 save and edit a plot object
 
@@ -119,7 +119,7 @@ weather_plot =
 weather_plot
 ```
 
-![](data_import_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
 ``` r
 ## save a plot into some object and print it later
@@ -142,7 +142,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ``` r
 ## remove the shadow of se
@@ -163,7 +163,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 ## we only get one blue line across the plot. the reason is that the color statement is within the first geom_point statement, but it will not influence the second one.
@@ -185,7 +185,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 ## "." means don't create rows, "~ name" means use name to create columns
@@ -203,7 +203,7 @@ weather_df %>%
     
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
 
 ``` r
 weather_df %>% 
@@ -219,7 +219,7 @@ weather_df %>%
     
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
 
 ``` r
 ## alpha = .5 means 50% transparency
@@ -238,7 +238,7 @@ weather_df %>%
     
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
 
 ``` r
 ## alpha could equal to a variable
@@ -260,7 +260,7 @@ weather_df %>%
 
     ## Warning: Removed 3 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
 ## small notes
 
@@ -278,7 +278,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_smooth).
 
-![](data_import_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
 You can use a neat geom\!
 
@@ -287,7 +287,7 @@ weather_df %>%
   ggplot(aes(x = tmin, y = tmax))
 ```
 
-![](data_import_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
   #geom_hex()
@@ -309,7 +309,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_bin).
 
-![](data_import_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 can we add color?
 
@@ -323,7 +323,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_bin).
 
-![](data_import_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
 # dodge is used to make the bars not overlapped with each other
@@ -337,7 +337,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_bin).
 
-![](data_import_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-12-2.png)<!-- -->
 
 ``` r
 weather_df %>% 
@@ -350,7 +350,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_bin).
 
-![](data_import_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-12-3.png)<!-- -->
 
 a new geometry\!
 
@@ -362,7 +362,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_density).
 
-![](data_import_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 # density is used to smooth the data, but we lose some information, but easy to compare
@@ -379,7 +379,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_boxplot).
 
-![](data_import_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
 Trendy plots
 
@@ -397,7 +397,7 @@ weather_df %>%
 
     ## Warning: Removed 3 rows containing missing values (geom_segment).
 
-![](data_import_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 Ridge plot \_ the most popular one in 2017
 
@@ -411,7 +411,7 @@ weather_df %>%
 
     ## Warning: Removed 15 rows containing non-finite values (stat_density_ridges).
 
-![](data_import_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 # more easier to see when we have many categories
@@ -445,7 +445,7 @@ weather_plot
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 ``` r
 weather_plot
@@ -453,4 +453,4 @@ weather_plot
 
     ## Warning: Removed 15 rows containing missing values (geom_point).
 
-![](data_import_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](visualization1_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->

@@ -1,0 +1,213 @@
+---
+title: "visualization"
+subtitle: "Part II"
+output: github_document
+---
+
+```{r setup}
+library(tidyverse)
+library(patchwork)
+```
+
+## Load the weather data
+
+```{r}
+weather_df = 
+  rnoaa::meteo_pull_monitors(
+    c("USW00094728", "USC00519397", "USS0023B17S"),
+    var = c("PRCP", "TMIN", "TMAX"), 
+    date_min = "2017-01-01",
+    date_max = "2017-12-31") %>%
+  mutate(
+    name = recode(
+      id, 
+      USW00094728 = "CentralPark_NY", 
+      USC00519397 = "Waikiki_HA",
+      USS0023B17S = "Waterhole_WA"),
+    tmin = tmin / 10,
+    tmax = tmax / 10) %>%
+  select(name, id, everything())
+
+weather_df
+```
+
+## Remember this plot
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5)
+```
+
+## labels
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = 'temperature plot',
+    x = "Minimun daily temperature (C)",
+    x = "maximum daily temperature (C)",
+    caption = "data from rnoaa package; temperature in 2017"
+  )
+```
+
+
+## scales
+
+start with the same plot
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax)) + 
+  geom_point(aes(color = name), alpha = .5) + 
+  labs(
+    title = "Temperature plot",
+    x = "Minimum daily temperature (C)",
+    y = "Maxiumum daily temperature (C)",
+    caption = "Data from the rnoaa package") + 
+  scale_x_continuous(
+    breaks = c(-15, 0, 15), 
+    labels = c("-15º C", "0", "15")) +
+  scale_y_continuous(
+    #trans = "sqrt"
+    ## to transfore the y axis
+    position = "right"
+  )
+```
+
+Look at color scales
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = 'temperature plot',
+    x = "Minimun daily temperature (C)",
+    x = "maximum daily temperature (C)",
+    caption = "data from rnoaa package; temperature in 2017"
+  ) +
+  scale_color_hue(
+    name = "Location",
+    ## to change the name of the index table
+    h = c(200, 400))
+
+
+
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = 'temperature plot',
+    x = "Minimun daily temperature (C)",
+    x = "maximum daily temperature (C)",
+    caption = "data from rnoaa package; temperature in 2017"
+  ) +
+  viridis::scale_color_viridis(
+    name = "Location",
+    discrete = TRUE) # the default is continuous, use this statement to let R know this data is discrete
+```
+
+## Themes
+
+Shift the legend
+
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = 'temperature plot',
+    x = "Minimun daily temperature (C)",
+    x = "maximum daily temperature (C)",
+    caption = "data from rnoaa package; temperature in 2017"
+  ) +
+  viridis::scale_color_viridis(
+    name = "Location",
+    discrete = TRUE) +
+  theme(legend.position = "bottom") #legend means the index table
+```
+
+change the overall theme
+```{r}
+weather_df %>% 
+  ggplot(aes(x = tmin, y = tmax, color = name)) +
+  geom_point(alpha = .5) +
+  labs(
+    title = 'temperature plot',
+    x = "Minimun daily temperature (C)",
+    x = "maximum daily temperature (C)",
+    caption = "data from rnoaa package; temperature in 2017"
+  ) +
+  viridis::scale_color_viridis(
+    name = "Location",
+    discrete = TRUE) +
+ # theme_bw()
+ # theme_minimal()
+ # theme_classoc()
+ggthemes::theme_economist() # Lots of themes in ggthemes package
+
+## theme statement will wipe up any statement above and do the plot as the theme's rule. SO ORDER MATTERS!
+```
+
+## setting options
+
+```{r eval = FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+  fig.asp = .6,
+  out.width = "90%"
+)
+
+theme_set(theme_minimal) + theme(legend.position = "bottom")
+
+options(
+  ggplot2.continuous.color = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_color_discrete = scale_color_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+
+## run this in the beginning will determine the theme of every plot in the document
+```
+
+
+## data orgs in `geom`
+
+```{r}
+central_park = 
+  weather_df %>% 
+  filter(name == "CentralPark_NY")
+
+waikiki = 
+  weather_df %>% 
+  filter(name == "Waikiki_HA")
+
+ggplot(data = waikiki, aes(x = date, y = tmax, color = name)) + 
+  geom_point() + 
+  geom_line(data = central_park)
+# if don't specify the dataset, the default dataset will be waikiki, so we can specify the data in the geom() statement for the specific geom
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
